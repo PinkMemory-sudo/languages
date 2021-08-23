@@ -107,54 +107,7 @@ throws表示出现异常的一种可能性，作用在方法名后
 
 
 
-List、Map、Set 三个接口存取元素时，各有什么特点  
 
-Comparable 和 Comparator接口的区别  
-
-**Java 集合类：list、set、queue、map、stack 的特点与用法**  
-
-
-
-**set怎么保证不重复的**
-
-
-
-**HashSet 的底层实现是什么**  
-
-
-
-**说出 ArrayList,Vector, LinkedList 的存储性能和特性**
-
-ArrayList的底层数据结构是数组，需要一片连续的存储空间，所以可以进行随机访问，适合进查询
-
-LinkedList的底层数据结构是双向链表，适合进行增加删除操作
-
-
-
-**Hashtable 和 Hashmap 的区别**
-
-* HashTable是线程安全的，HashMap线程非安全
-* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
-
-
-
-**TreeMap、HashMap、LindedHashMap 的区别**   
-
-
-
-**为什么重写 equals 时必须重写 hashCode 方法**
-
-
-
-**Java 中==和 equals()的区别**    
-
-==用来比较是否执行同一个地址
-
-
-
-
-
-**HashSet 和 TreeSet 有什么区别**
 
 
 
@@ -254,9 +207,13 @@ static都有哪些用法
 
 ​    
 
-**switch 能否作用在 byte、long、string 上**  
+**switch 能否作用在 byte、long、string 上** 
 
-   
+switch 可作用在 char、byte、short、int(小于等于int的数字)及他们的包装类上和String
+
+
+
+Iterator   遍历时修改？
 
 ​            
 
@@ -283,9 +240,75 @@ static都有哪些用法
 
 # 容器
 
-​         什么是迭代器(Iterator)  
 
- Iterator 和 ListIterator 的区别是什么？
+
+List、Map、Set 三个接口存取元素时，各有什么特点  
+
+
+
+**Java 集合类：list、set、queue、map、stack 的特点与用法**  
+
+
+
+**set怎么保证不重复的**
+
+set进行add时，实际调用的是HashMap的put方法，会先判断元素的hashcode，如果不相同，则认为是两个不同的对象，直接插入，如果相同，则进一步调用equals来比较。
+
+
+
+**HashSet 的底层实现是什么**  
+
+
+
+**说出 ArrayList,Vector, LinkedList 的存储性能和特性**
+
+ArrayList的底层数据结构是数组，需要一片连续的存储空间，所以可以进行随机访问，适合进查询
+
+LinkedList的底层数据结构是双向链表，适合进行增加删除操作
+
+
+
+**Hashtable 和 Hashmap 的区别**
+
+* HashTable是线程安全的，HashMap线程非安全
+* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
+
+
+
+**TreeMap、HashMap、LindedHashMap 的区别**   
+
+
+
+**为什么重写 equals 时必须重写 hashCode 方法**
+
+
+
+**Java 中==和 equals()的区别**    
+
+==用来比较是否执行同一个地址
+
+
+
+
+
+**HashSet 和 TreeSet 有什么区别**
+
+**什么是迭代器(Iterator)**
+
+ 
+
+
+
+**Iterator 和 ListIterator 的区别是什么？**
+
+* Iterator是遍历Collection的通用的方法，ListIterator 只能用来遍历LIst
+
+* Iterator 对集合只能是前向遍历，ListIterator 既可以前向也可以后向
+*  ListIterator 实现了 Iterator 接口，并包含其他的功能，比如：增加元素，替换元素，获取前一个和后一个元素的索引，等等
+
+
+
+
 
 ​         实现集合的排序 
 
@@ -294,6 +317,18 @@ static都有哪些用法
 ​         HashMap 源码分析  
 
 ​         ConcurrentHashMap 源码分析   
+
+**Comparable 和 Comparator接口的区别**  
+
+这两个接口主要用来对集合进行排序。实现Comparable接口的类，可以直接用来排序。通过Collections.sort()来排序。可，而没有实现Comparable接口的类要想排序，需要定义一个比较器。通过list.sort,传入一个Comparator来排序。
+
+
+
+
+
+
+
+Java中  String、Byte、Char、Date 等大量的类都实现了Compareable接口。
 
 
 
@@ -309,9 +344,13 @@ static都有哪些用法
 
 常量池
 
-​         字符串常量池到底存在于内存空间的哪里  
+**字符串常量池到底存在于内存空间的哪里**  
 
-​         Java 中的编译期常量是什么？使用它又什么风险  
+
+
+ **Java 中的编译期常量是什么？**
+
+编译时就能够知道变量的值并且值不会再改变的变量，会直接替换成值。这种就是编译期常量(即使那种final修饰的并且直接赋值的)
 
 
 
@@ -323,9 +362,23 @@ static都有哪些用法
 
 
 
-​         JDK 1.7 中的新特性
+Stream API，充分利用现代多核 CPU  
+
+**Time API**  
+
+接口  
 
 
+
+ JDK 1.7 中的新特性
+
+​         **try-with-resource**  
+
+​         Fork-Join  
+
+​         **Switch**   
+
+​         菱形操作符**(<>)用于类型推断**  
 
 JDK1.8的新特性
 
