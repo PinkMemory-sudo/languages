@@ -2,11 +2,11 @@
 
 
 
-类变量，方法，构造函数等的初始化顺序
+**类变量，方法，构造函数等的初始化顺序**
 
 
 
-final关键字的作用
+**final关键字的作用**
 
 被 final 修饰的变量不可以被改变，  如果修饰引用,那么引用不可变,引用指向的内容可变
 
@@ -18,23 +18,43 @@ final关键字的作用
 
 
 
-Java 的基础类型和字节大小
+**Java 的基础类型和字节大小**
+
+boolean 	    8位
+
+byte			    8位
+
+char			    8位
+
+short	  		16位
+
+int				   32位
+
+long				64位
+
+float				32位
+
+double			64位
 
 
 
-四个访问修饰符合访问级别  
+
+
+**四个访问修饰符合访问级别**  
+
+类中的，同包的，子类的，公共的：private，protected，友好的，public
 
 ​         
 
-成员变量和局部变量的区别有哪些
+**成员变量和局部变量的区别有哪些**
 
 
 
-​         静态方法和实例方法有何不同    
+静态方法和实例方法有何不同    
 
 
 
-abstract class 和 interface 有什么区别?
+**abstract class 和 interface 有什么区别**
 
 由abstract修饰的方法叫抽象方法;由abstract修饰的类叫抽象类。抽象类就是一个还不完善的类
 
@@ -63,13 +83,23 @@ Object 中有哪些公共方法
 
 说几个常见的编译时异常 
 
-throw 和 throws 的区别
+**throw 和 throws 的区别**
 
-​         运行时异常与一般异常有何异同  
+throw用来抛出一个异常对象，作用在方法内部
+
+throws表示出现异常的一种可能性，作用在方法名后
+
+
+
+ 运行时异常与一般异常有何异同  
 
   
 
-方法重载的规则
+**方法重载的规则**
+
+同名不同参，其他的异常，返回值等无关
+
+
 
 方法重写的规则
 
@@ -77,59 +107,94 @@ throw 和 throws 的区别
 
 
 
-​         List、Map、Set 三个接口存取元素时，各有什么特点  
+List、Map、Set 三个接口存取元素时，各有什么特点  
 
-​         Comparable 和 Comparator接口的区别  
+Comparable 和 Comparator接口的区别  
 
-Java 集合类：list、set、queue、map、stack 的特点与用法  
-
-
-
-set怎么保证不重复的
+**Java 集合类：list、set、queue、map、stack 的特点与用法**  
 
 
 
-HashSet 的底层实现是什么  
+**set怎么保证不重复的**
 
 
 
-说出 ArrayList,Vector, LinkedList 的存储性能和特性？
+**HashSet 的底层实现是什么**  
 
 
 
-Hashtable 和 Hashmap 的区别
+**说出 ArrayList,Vector, LinkedList 的存储性能和特性**
+
+ArrayList的底层数据结构是数组，需要一片连续的存储空间，所以可以进行随机访问，适合进查询
+
+LinkedList的底层数据结构是双向链表，适合进行增加删除操作
 
 
 
-​         TreeMap、HashMap、LindedHashMap 的区别   
+**Hashtable 和 Hashmap 的区别**
+
+* HashTable是线程安全的，HashMap线程非安全
+* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
 
 
 
-为什么重写 equals 时必须重写 hashCode 方法
+**TreeMap、HashMap、LindedHashMap 的区别**   
 
 
 
-Java 中==和 equals()的区别    
+**为什么重写 equals 时必须重写 hashCode 方法**
 
 
 
-HashSet 和 TreeSet 有什么区别
+**Java 中==和 equals()的区别**    
+
+==用来比较是否执行同一个地址
+
+
+
+
+
+**HashSet 和 TreeSet 有什么区别**
 
 
 
 内存泄漏和内存溢出
 
-​         什么是反射  
+什么是反射  
 
 
 
-​         反射的作用
+反射的作用
 
 反射中，Class.forName()和 ClassLoader.loadClass()的区别？
 
 
 
-String、StringBuilder、StringBuffer 区别  
+**String、StringBuilder、StringBuffer 区别**  
+
+String是不可变字符，都会生成一个新对象(会转成StringBuilder，然后append，再toString)，所以在进行大量字符串拼接是会产生许多对象
+
+StringBuilder只产生一个对象，然后一直append来拼接
+
+StringBuffer与StringBuilder相同，但是StringBuffer是线程安全的
+
+
+
+**String str="hello world"和String str=new String("hello world")的区别**
+
+使用""创建的字符串存储在字符串常量池中，相同的内容只会存储一份。new String()，通过new创建出来的字符串存储是在堆内存中，不会去检查是否存在。
+
+
+
+**String a = "hello2"; String b = "hello" + 2; System.out.println((a == b));会输出什么**
+
+true， "hello" + 2会在编译时被jvm优化成"hello2"，所以a和b是同一个对象
+
+
+
+**String a = "hello2"; 　 String b = "hello";    String c = b + 2;    System.out.println((a == c));的输出结果**
+
+false 因为c是间接相加的，jvm不会对引用变量进行优化
 
 
 
@@ -187,7 +252,9 @@ static都有哪些用法
 
 什么是值传递和引用传递
 
-​         switch 能否作用在 byte、long、string 上  
+​    
+
+**switch 能否作用在 byte、long、string 上**  
 
    
 

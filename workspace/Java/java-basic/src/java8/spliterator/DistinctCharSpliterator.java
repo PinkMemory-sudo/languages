@@ -64,6 +64,8 @@ public class DistinctCharSpliterator implements Spliterator<Character> {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
 
+        String
+
         List<Character> chars = Arrays.asList('a', 'b', 'c', 'd', 'b', 'a');
 
         DistinctCharSpliterator distinctCharSpliterator = new DistinctCharSpliterator(chars);
