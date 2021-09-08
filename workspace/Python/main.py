@@ -1,5 +1,10 @@
-import sys
-import traceback
+f = open("/Users/chenguanlin/Downloads/2021.txt")
+lies = f.readlines()
 
-if not []:
-    print("【】")
+sum = 0
+for line in lies:
+    print(line.strip())
+    sum+=int(line.strip())
+
+print(sum)
+
