@@ -416,6 +416,10 @@ Iterator   遍历时修改？
 
 
 
+## List
+
+
+
 **List和Set的区别**
 
 List是有序的，元素可以重复，Set相反
@@ -430,13 +434,13 @@ ArrayList的数据结构是数组，它是一片连续的存储空间，所以�
 
 LinkedList的数据结构是链表，分散存储在内存中，不能随机访问，并且占用的空间要大一些。
 
-ArrayList在添加元素时可能会出发扩容，不在尾部添加时还需要移动(把插入的那个位置空出来)，而LinkedList只需要改变指针就行。
-
-LinkedList不要使用for循环遍历，因为git(i)每次都会又从头开始查。
-
 
 
 **List、Map、Set 三个接口存取元素时，各有什么特点**  
+
+
+
+## Set
 
 
 
@@ -450,25 +454,6 @@ set进行add时，实际调用的是HashMap的put方法，会先判断元素的h
 
 
 
-**说出 ArrayList,Vector, LinkedList 的存储性能和特性**
-
-ArrayList的底层数据结构是数组，需要一片连续的存储空间，所以可以进行随机访问，适合进查询
-
-LinkedList的底层数据结构是双向链表，适合进行增加删除操作
-
-
-
-**Hashtable 和 Hashmap 的区别**
-
-* HashTable是线程安全的，HashMap线程非安全
-* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
-
-
-
-**TreeMap、HashMap、LindedHashMap 的区别**   
-
-
-
 **为什么重写 equals 时必须重写 hashCode 方法**
 
 默认情况下，hashCode是对象在堆中的一个特殊值，而equals比较的则是在堆中的地址，所以无论如何，每个对象的hashcode和equals都不会相同。对象的hashcode主要用来计算出该对象在hash表中的索引，然后equals来比较两个对象是否相同这样就减少了比较的次数；在set中，会先根据hashcode计算出索引比较是否相同，有的还在调用equals比较对象是否相同来保证元素不重复，如果equals相同但是hashcode不同，可能计算出来的索引不同，就不能保证元素不重复。
@@ -476,6 +461,34 @@ LinkedList的底层数据结构是双向链表，适合进行增加删除操作
 所以必须保证：
 
 equals相同时，hashCode也一定要相同。所以重写了equals方法，则生成hashcode的条件也要发生改变。
+
+
+
+
+
+**HashSet 和 TreeSet 有什么区别**
+
+
+
+## Map
+
+
+
+**Hashtable 和 Hashmap 的区别**
+
+* HashTable是线程安全的，HashMap线程非安全
+* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
+* 初始容量，扩容机制不同
+
+
+
+**TreeMap、HashMap、LindedHashMap 的区别**   
+
+
+
+
+
+
 
 
 
@@ -494,8 +507,6 @@ object中的equals()与==相同，所以没有重写equals时，==和equal是相
 
 
 
-
-**HashSet 和 TreeSet 有什么区别**
 
 **什么是迭代器(Iterator)**
 
