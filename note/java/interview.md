@@ -74,6 +74,9 @@ equals在没有重写时等价于==，用来比较地址，重写后用来比较
 
 **成员变量和局部变量的区别**
 
+* 成员变量声明在类中，可以被修饰符修饰，局部变量声明在方法中，导致两者存储的位置和声明周期不同
+* 成员变量有默认值
+
 
 
 **静态方法和成员方法的不同**
@@ -100,15 +103,31 @@ equals在没有重写时等价于==，用来比较地址，重写后用来比较
 
 ## 变量
 
+
+
+**a=a+b与a+=b的区别**
+
+a+=b会将计算结果隐式的转为持有的结果
+
+
+
+**3*0.1==0.3的结果**
+
+false
+
+
+
 char能不能转int，String，double
 
 
 
+**char能不能存一个汉字**
+
+可以，Java使用的是unicode编码，一个char占两个字节
+
+
+
 **浮点型数据应该怎么计算**
-
-
-
-**Java是值传递还是引用传递**
 
 
 
@@ -134,6 +153,18 @@ char能不能转int，String，double
 
 
 
+**怎么使用BigDecimal进行浮点型数据运算**
+
+1. 获得BigDecimal对象new BigDecimal(String)获得静态方法BigDecimal.valueOf(Double)
+2. 调用加减乘除运算，add,subtract,multiply,divide
+3. 返回String或者double
+
+
+
+**Match常用方法**
+
+pow，round，abs，random
+
 
 
 ## 面向对象
@@ -150,9 +181,37 @@ char能不能转int，String，double
 
 
 
+判断一个String中只包含数字
+
+```
+matches("[0-9]{1,}")
+```
+
+
+
+怎么指定字符串的编码形式
+
+new String(s.getBytes(),"编码")
+
+
+
 ## 日期
 
 55道
+
+
+
+**SimpleDateFormat为什么是线程不安全的**
+
+其中存放日期数据的变量都是线程不安全的。
+
+
+
+**怎么计算两个日期的间隔**
+
+两个日期间的比较可以使用isAfter等，而计算间隔可以使用ChronoUnit.DAYS/hour/minutes等的between方法。
+
+
 
 
 
@@ -166,7 +225,7 @@ boolean 	    8位
 
 byte			    8位
 
-char			    8位
+char			    16位
 
 short	  		16位
 
@@ -226,7 +285,15 @@ static代码块只在类加载的时候执行一次，普通代码块会在每�
 * Java8前，接口中都是抽象方法(java8新增default和非抽象方法, jdk9以后可以有private，9之前定义private会便宜报错的 )，抽象类中可以有抽象方法，也可以有实现的方法
 *  接口中只能由static 和 final 变量 ，不能有其他成员变量
 
-   
+
+
+
+**Java8中的接口都可以有什么**
+
+* Java8之前，接口中的方法被public abstract隐式修饰，Java8后允许default和static
+* 接口中声明的变量隐式的被 public static final 修饰
+
+
 
 **内部类有什么作用**
 
@@ -334,7 +401,11 @@ false 因为c是间接相加的，jvm不会对引用变量进行优化
 
 
 
-强引用和软引用和弱引用以及虚引用 
+**强引用和软引用和弱引用以及虚引用** 
+
+弱引用：失去最后一个强引用后就会被GC回收
+
+软引用：内存不足时才会被回收
 
 ​       
 
@@ -363,6 +434,10 @@ new 一个对象的过程和 clone 一个对象的过程
 ​         
 
 final、finalize 和 finally 的不同之处  
+
+垃圾回收器在回收某个对象的时候，首先会调用该对象的finalize()方法，jdk9以后这个方法就过时了
+
+
 
 
 
@@ -449,19 +524,39 @@ Iterator   遍历时修改？
 
 
 
+**使用IO的最佳实践**
+
+* 使用有缓冲的IO类
+* 使用NIO或者NIO2
+* 在finally中关闭流或者使用try-with-resource
+
+
+
 **BIO,NIO,AIO的区别**
 
 52页
 
-BIO，同步阻塞 I/O 模式
+BIO： 同步阻塞 I/O 模式，就是我们平常使用的IO，使用简单，并发低。
 
-NIO，同步非阻塞I/O模式
+NIO： 同步非阻塞I/O模式，通过channel传输，实现了多路复用
 
-AIP，NIO2，异步非阻塞的 IO 模型
+AIP： NIO2，异步非阻塞的 IO 模型，基于事件和回调机制
 
 
 
 **Files常用的方法**
+
+| 方法                | 描述             |
+| ------------------- | ---------------- |
+| Files.exists()      | 是否存在         |
+| Files.createFile()  | 创建文件         |
+| Files.creatDirectoy | 创建文件夹       |
+| Files.delete()      | 删除文件或文件夹 |
+| Files.copy()        | 复制文件         |
+| Files.move()        | 移动文件         |
+| Files.size()        | 查看文件个数     |
+| Files.read()        | 读               |
+| FIles.write()       | 写               |
 
 
 
@@ -481,17 +576,33 @@ AIP，NIO2，异步非阻塞的 IO 模型
 
 
 
+**Log4j对程序有影响吗**
+
+将日志记录到本地或者数据库需要消耗IO，频繁操作，会对系统性能产生影响
+
 
 
 # 容器
 
-* 数据结构
-* 扩容
-* 性能
+
 
 
 
 ## List
+
+
+
+**Arraylist 与 LinkedList 区别?**
+
+ArrayList的数据结构是数组，LinkedList的数组结构是链表，所以两者的主要区别就是数组和链表的区别。
+
+ArrayList适合通过下标进行随机访问，LinkedList适合频繁插入删除的情况。
+
+ArrayList需要连续的空间，不够时需要扩容，重新分配空间，LinkedList不用。
+
+内存空间占用：ArrayList 的空间浪费主要体现在在 list 列表的结尾会预留一定的容量空 间，而 LinkedList 的空间花费则体现在它的每一个元素都需要存放直接后继和直接前驱以及数据
+
+
 
 **List,Set,Map三者的区别**
 
@@ -503,18 +614,7 @@ AIP，NIO2，异步非阻塞的 IO 模型
 
 **List和Set的区别**
 
-List是有序的，元素可以重复，Set相反
-
-
-
-**ArrayList与LinkedList的区别**：
-
-* 底层数据结构：ArrayList是数组，LinkedList是链表
-* 查找：ArrayList的数据结构是数组，它是一片连续的存储空间，所以可以做到随机访问。Linked是链表，需要变俩查找，LinkedList不要使用for循环遍历，因为git(i)每次都会又从头开始查。
-* 插入删除：如果尾部，则需要移动元素，Linked在头部/尾部时间复杂度是1，而其他地方需要先查找，时间复杂度是n
-* 内存空间占用：ArrayList 的空间浪费主要体现在在 list 列表的结尾会预留一定的容量空 间，而 LinkedList 的空间花费则体现在它的每一个元素都需要存放直接后继和直接前驱以及数据
-
-
+List是有序的，元素可以重复，Set相反。List有下标，所以可以使用for循环。
 
 
 
@@ -527,7 +627,16 @@ ArrayList和Vector都是List的实现类主要区别在与Vector是线程安全�
  **ArrayList 的扩容机制**
 
 
-**List、Map、Set 三个接口存取元素时，各有什么特点**  
+
+**怎么创建一个只读的容器**
+
+调用Collections.unmodifiableCollection(collections s)创建
+
+
+
+**对线程场景下如何使用ArrayList**
+
+ArrayList是非线程安全的，需要使用Collections的syschronizedList转为安全的list
 
 
 
@@ -542,6 +651,8 @@ set进行add时，实际调用的是HashMap的put方法，会先判断元素的h
 
 
 **HashSet 的底层实现是什么**  
+
+HashMap，用的都是HashMap的方法
 
 
 
@@ -559,23 +670,22 @@ equals相同时，hashCode也一定要相同。所以重写了equals方法，则
 
 **HashSet 和 TreeSet 有什么区别**
 
+HashSet通过HashMap实现，TreeSet通过TreeSet实现
+
+存入HashSet需要重新HashCode和equals
+
+存入TreeSet需要实现Comparable
+
 
 
 ## Map
 
 
 
-Map
-
-
-
 **Hashtable 和 Hashmap 的区别**
 
 
-* HashTable是线程安全的，HashMap线程非安全
-* Hashtable 不允许 null 值HashMap 允许 null 值(key 和value 都可以)
 * 初始容量，扩容机制不同
-=======
 * 安全性：HashMap 是非线程安全的， HashTable 是线程安全的,因为 HashTable 内 部的方法基本都经过 synchronized 修饰
 * 效率：HashTable虽然线程安全，但是效率比较低，基本不用
 * null值：hashmap的key允许有一个null，hashtable不允许
@@ -587,6 +697,7 @@ Map
 **HashMap实现原理**
 
 Jdk1.8后引入了红黑树，当一个链表的长度达到阈值8时，如果当前数组的长度小于64，就会先进行扩容，否则就把链表转成红黑树
+
 
 
 **容量为什么是2的幂次方**
@@ -713,6 +824,24 @@ Java中  String、Byte、Char、Date 等大量的类都实现了Compareable接�
 
 
 
+**32位JVM和64位JVM最大的内存**
+
+32位：2^32(4GB)
+
+64位：2^64，很大，1000G都可以
+
+
+
+**获得JVM位数**
+
+sun.arch.data.model或者os.arch
+
+
+
+**获得Java程序的内存使用信息**
+
+Runtime类的freememory()等方法
+
 
 
 ## 内存模型
@@ -833,9 +962,25 @@ Java虚拟机栈可能会出现两种错误：StackOverFlowError 和 OutOfMemory
 
 
 
-## 垃圾回收
+# 垃圾回收
 
 
+
+**内存泄露**
+
+理论上因为有GC，不会导致内存泄露，然而实际开发中，会存在一些无用但是可达的对象导致不能被GC，
+
+
+
+对象的引用置为null是否会被回收
+
+
+
+**串行收集器和吞吐量收集器的区别是什么**
+
+吞吐量收集器采用并行的新生代垃圾收集器，用于中大规模应用
+
+串行收集器对于大多数小型(100M内存左右)足够了
 
 
 
@@ -935,6 +1080,65 @@ Java8取消了方法区替换为元空间
 
 
 # JUC
+
+？
+
+* 锁分离
+* 线程的dump文件
+
+
+
+**使用wait和notify写一个生产者消费者代码**
+
+
+
+**写一个线程安全的单例模式**
+
+
+
+**进行对线程开发时，你有哪些最佳实践**
+
+* 给线程命名，有助于调试
+* 最小化同步的范围
+* 使用更高层次的开发工具BlockQueue等而不是wait和notify
+* 优先使用并发集合而不是同步
+
+
+
+
+
+**线程同步的方法**
+
+* Synchronized
+* Lock
+* volatile
+
+
+
+**进程和线程的区别**
+
+进程是资源分配的最小单位，线程是CPU调度的最小单位。一个进程可以有多个线程，共享进程的资源。所以线程执行时一般都要进行同步和互斥。
+
+
+
+## volatile
+
+
+
+**创建volatile数组**
+
+只保证了引用的可见性
+
+
+
+**volatile能使一个非原子操作变成一个原子操作吗**
+
+
+
+volatile提供了什么保证
+
+* 可见性
+* 一部分有序性
 
 
 
@@ -1146,8 +1350,6 @@ JDK1.6 对锁的实现引入了大量的优化，如自旋锁、适应性自旋�
 
 
 
-**线程同步的方法**
-
 
 
 
@@ -1257,3 +1459,127 @@ make PREFIX=~/2022/redis/ install
 数据结构与算法
 
 **双向链表和双向循环链表**
+
+
+
+# other
+
+
+
+**JDBC的使用步骤**
+
+加载驱动
+
+获得数据库连接
+
+执行SQL语句
+
+获得结果集
+
+关闭连接
+
+
+
+**数据库连接池技术**
+
+
+
+没有临时变量的情况下怎么交换两个值
+
+
+
+# 设计模式
+
+55
+
+
+
+**什么是设计模式，为什么要使用设计模式**
+
+代码涉及经验的总结，为了能重用代码，提高代码可读性
+
+
+
+**单例模式**
+
+
+
+**什么是里氏替换原则**
+
+
+
+**什么情况下会违反迪米特法则**
+
+
+
+**什么时候用适配器模式**
+
+
+
+**适配器模式和装饰器模式的区别**
+
+
+
+**适配器模式和代理模式的区别**
+
+
+
+**什么是模板方法模式**
+
+
+
+访问者模式
+
+
+
+组合模式
+
+
+
+**继承和组合有什么不同**
+
+
+
+
+
+**聚合和关联有什么区别**
+
+
+
+**开闭原则**
+
+对扩展开发，对修改关闭，增加新功能时只需要实现接口。
+
+
+
+**抽象工厂模式和原型模式的区别**
+
+
+
+**享元模式**
+
+
+
+# 网络
+
+
+
+http
+
+
+
+ftp
+
+
+
+SMPT
+
+
+
+tcp与udp的区别
+
+
+
+
+
+**套接字编程实现回显**
