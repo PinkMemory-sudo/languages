@@ -947,6 +947,14 @@ Java8取消了方法区替换为元空间
 
 # JUC
 
+
+
+**Synchronized和Lock区别**
+
+sunchronized发生异常会释放锁 
+
+
+
 ？
 
 * 锁分离
