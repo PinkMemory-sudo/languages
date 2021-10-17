@@ -78,7 +78,17 @@ Java虚拟机栈可能会出现两种错误：StackOverFlowError 和 OutOfMemory
 
 
 
+## JVM常用命令
 
+jps
+
+jinfo
+
+jstat
+
+jstack
+
+jmap
 
 
 
