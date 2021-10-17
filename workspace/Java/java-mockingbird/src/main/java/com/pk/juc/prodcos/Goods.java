@@ -24,6 +24,7 @@ public class Goods {
                 this.wait();
             }
         }
+        return "";
     }
 
 }
