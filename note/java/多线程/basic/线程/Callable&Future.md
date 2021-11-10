@@ -1,14 +1,19 @@
 
 
+# Callable
+
+- Callable可以在任务结束的时候提供一个返回值，Runnable无法提供这个功能
+- Callable的call方法分可以抛出异常，而Runnable的run方法不能抛出异常。
+
 **使用**
 
-实现Callable<>，指定返回值类型，重写call方法
+1. 实现Callable<>，指定返回值类型，重写call方法
+2. 使用线程池提交任务
+3. 通过future获得执行结果
 
-call方法可以抛出异常
 
 
-
-Future接口来代表Callable接口里call()方法的返回值，并且为Future接口提供了一个实现类FutureTask。
+# Future
 
 
 
