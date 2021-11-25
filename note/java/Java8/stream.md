@@ -1,14 +1,6 @@
-好处：简洁，提供了内部迭代，就像循环，来处理每个元素。
+好处：
 
-
-
-串行流与并行流
-
-
-
-
-
-
+* 
 
 
 
@@ -18,18 +10,16 @@
 
 
 
-获得流的方法
+# 获取流
 
-| 方法                                                        | 描述                                 |
-| ----------------------------------------------------------- | ------------------------------------ |
-| static of(T...values)                                       | 用传入的元素创建一个流，不定长，数组 |
-| Collection中的stream                                        | 将该集合转换成流                     |
-| Arrays.stream(T[] array)                                    | 根据传入的数组创建流                 |
-| stream(T[] array, int startInclusive, int endExclusive)     | 根据数组的一部分创建流               |
-| Stream.concat(Stream<? extends T> a, Stream<? extends T> b) | 合并两个流                           |
-| Int/LongDoubleStream的静态方法                              |                                      |
 
-创建int/long/double流
+
+| 操作                | 方法                                                      |
+| ------------------- | --------------------------------------------------------- |
+| 通过数组获得流      | Stream.of(T...values)/Arrays.stream(T...values[起止位置]) |
+| 通过集合获得流      | xxx.Stream()                                              |
+| 合并两个流          | Stream.concat()                                           |
+| 创建整数/浮点数等流 | IntStream/...                                             |
 
 IntStream.range(1, 100).boxed()，创建出来的元素时int类型，可以用boxed进行装箱。range的范围时左闭右开,全闭合是***rangeClosed***
 
@@ -37,9 +27,13 @@ IntStream.range(1, 100).boxed()，创建出来的元素时int类型，可以用b
 
 
 
-中间操作
+# 操作流
 
-中间操作是是lazy操作，不会立马执行，终止时才执行。
+
+
+* 中间操作是是lazy操作，不会立马执行，终止时才执行
+
+* 对stream的操作也不会影响到创建它的数组和集合
 
 | 方法                      | 描述                                                         |
 | ------------------------- | ------------------------------------------------------------ |
@@ -56,7 +50,7 @@ IntStream.range(1, 100).boxed()，创建出来的元素时int类型，可以用b
 
 
 
-终结流的方法
+# 终止流
 
 | 方法       | 描述                          |
 | ---------- | ----------------------------- |
@@ -70,6 +64,8 @@ IntStream.range(1, 100).boxed()，创建出来的元素时int类型，可以用b
 
 
 Collectors的静态方法
+
+* Collection
 
 | 方法                                                         | 描述                       |
 | ------------------------------------------------------------ | -------------------------- |
@@ -99,36 +95,6 @@ groupingBy(Function,Collector)
 可以理解成groupingBy(Function,Collector)，function为key，Collectors为value，没有Collectors时value默认为该组中所有元素组成的value。
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-java8流中所有的操作都是蓄而不发的，只有执行foreach，collect等终结操作时，流的操作才会执行
 
 
 
@@ -170,8 +136,6 @@ concat
 
 
 
-
-
 并行流的线程安全问题：
 
 在parallelStream里面使用外部变量
@@ -186,47 +150,56 @@ Collectors
 
 
 
+flatMap
+
+reduce
 
 
-```json
-{0018:{0011:[Student(company:0018, department:0011, people:a13)]}, 001:{0011:[Student(company:001, department:0011, people:a), Student(company:001, department:0011, people:a1), Student(company:001, department:0011, people:a5)]}, 0015:{0011:[Student(company:0015, department:0011, people:6a), Student(company:0015, department:0011, people:a12)]}, 002:{0011:[Student(company:002, department:0011, people:a2)]}, 0016:{0011:[Student(company:0016, department:0011, people:a7), Student(company:0016, department:0011, people:a11)]}, 003:{0011:[Student(company:003, department:0011, people:a3)]}, 0013:{0011:[Student(company:0013, department:0011, people:a9)]}, 004:{0011:[Student(company:004, department:0011, people:a4)]}, 0014:{0011:[Student(company:0014, department:0011, people:a0)]}, 0012:{0011:[Student(company:0012, department:0011, people:a8)]}}
 
+```java
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Employee {
+    private String name;
+    private String position;
+    private double salary;
+}
 ```
 
 
 
-## flatMap
+* Collectors.toCollection(HashSet::new)
+* Collectors.toList()
+* Collectors.toSet()
+* Collectors.toMap(key,value)
 
 
 
+* 
 
 
 
+匹配
 
+```
+groupingBy(Function<? super T, ? extends K> classifier)
+groupingBy(Function<? super T, ? extends K> classifier,
+                                          Collector<? super T, A, D> downstream)
+groupingBy(Function<? super T, ? extends K> classifier,
+                                  Supplier<M> mapFactory,
+                                  Collector<? super T, A, D> downstream)                                                                                  
+```
 
+```
+toMap(Function<? super T, ? extends K> keyMapper,
+                                Function<? super T, ? extends U> valueMapper,
+                                BinaryOperator<U> mergeFunction)
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4154691121
-
-BeiLunGA
+```
+toMap(Function<? super T, ? extends K> keyMapper,
+                            Function<? super T, ? extends U> valueMapper,
+                            BinaryOperator<U> mergeFunction,
+                            Supplier<M> mapSupplier)
+```

@@ -32,9 +32,9 @@ get通常与isPresent()连用
 
 
 
+**orElse() 和 orElseGet() 的不同之处**
 
-
-
+orElse不管为不为null都会创建默认对象
 
 
 
@@ -89,6 +89,8 @@ orElseGet()
 
 
 
+
+**链式调用**
 
 
 
