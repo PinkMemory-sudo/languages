@@ -1,6 +1,5 @@
 package com.pk.java8.stream;
 
-import org.apache.commons.collections.collection.CompositeCollection;
 
 import java.util.ArrayList;
 import java.util.Arrays;

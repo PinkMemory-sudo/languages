@@ -1,6 +1,5 @@
 package com.pk.timeapi;
 
-import sun.jvm.hotspot.utilities.Interval;
 
 import java.time.Duration;
 import java.time.Instant;

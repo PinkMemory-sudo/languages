@@ -48,17 +48,6 @@ synchronized, wait, notify 是任何对象都具有的同步工具
 
 
 
-**线程的状态**
-
-| 状态          | 描述                                                         |
-| ------------- | ------------------------------------------------------------ |
-| NEW           | 新建状态                                                     |
-| RUNNABLE      | 可运行状态，包含READY和RUNNING                               |
-| BLOCKED       | 阻塞状态，线程发起阻塞的I/O操作或者申请其他线程占用的资源时。阻塞状态不会占用CPU |
-| WAITING       | 等待状态，线程执行了wait或者join状态，执行notify或者加入的线程执行完后进入RUNNABLE |
-| TIMED_EAITING | 与WAITING状态类似，但是指定的有时间，超时自动转RUNNABLE      |
-| TERMINATED    | 线程运行完之后                                               |
-
 
 
 run方法不能抛出异常

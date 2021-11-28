@@ -1,7 +1,6 @@
 package com.pk.annotation.editlog;
 
 import com.pk.annotation.editlog.EditLog;
-import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.time.Instant;

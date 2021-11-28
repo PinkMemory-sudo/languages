@@ -12,10 +12,10 @@ import java.util.stream.IntStream;
 @Slf4j
 public class ThreadMain {
     public static void main(String[] args) {
-        List<Integer> taskParamList = IntStream.range(0, 10).boxed().collect(Collectors.toList());
-        ThreadTask task = new ThreadTask(taskParamList);
-        new Thread(task,"ThreadTask1").start();
-        new Thread(task,"ThreadTask2").start();
-        new Thread(task,"ThreadTask3").start();
+        ThreadTask task = new ThreadTask();
+        new Thread(task,"Counter1").start();
+        new Thread(task,"Counter2").start();
+        new Thread(task,"Counter3").start();
+
     }
 }

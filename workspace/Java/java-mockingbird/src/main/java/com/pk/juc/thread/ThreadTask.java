@@ -10,25 +10,17 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class ThreadTask extends Thread {
 
-    List<Integer> taskParamList;
-
-    public ThreadTask(List<Integer> taskParamList) {
-        this.taskParamList = taskParamList;
-    }
-
-    public void sale() {
-        while (taskParamList.size() > 0) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(100);
-                taskParamList.remove(taskParamList.size() - 1);
-            } catch (InterruptedException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-    }
+    volatile private int sum = 100;
 
     @Override
     public void run() {
-        sale();
+        while (sum > 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + ":" + sum--);
+        }
     }
 }
