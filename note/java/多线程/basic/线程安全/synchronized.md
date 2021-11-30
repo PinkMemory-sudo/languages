@@ -141,6 +141,8 @@ public class Market {
 
 
 
+[参考](https://www.cnblogs.com/myworld7/p/12230010.html)
+
 死锁就是鹬蚌相争，彼此依赖对方收里的锁，彼此有都不释放，彼此还不能去抢对方的，只能傻傻的一直等待。
 
 
@@ -158,6 +160,9 @@ public class Market {
 
 
 **死锁的代码演示**
+
+```java
+```
 
 
 

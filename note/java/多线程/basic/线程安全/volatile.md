@@ -71,3 +71,53 @@ volatile，易变的；无定性的。
 性能
 
 作用范围
+
+
+
+
+
+先看一种现象
+
+```java
+public class VolatileTest {
+    public static void main(String[] args) {
+        Task task = new Task();
+        new Thread(task, "task1").start();
+        // 休眠100ms，保证task1先执行
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        task.setStatus(false);
+        System.out.println(Thread.currentThread().getName() + ":" + task.isStatus());
+    }
+}
+
+@Data
+class Task implements Runnable {
+
+    private boolean status = true;
+
+    @Override
+    public void run() {
+        while (status) {
+            // stdout是行缓冲的. 使用stderr,或在每次打印后刷新PrintStream.
+//            System.out.println(Thread.currentThread().getName());
+        }
+        System.out.println(Thread.currentThread().getName() + ":" + status);
+    }
+}
+```
+
+可以看到一个现象，task1一直无法结束。由JMM我们直到，线程操作共享变量是不直接在主内存中操作，而是读取到本地内存中，来操作副本。所以主线程修改并更新了status的值后，task1的本地变量的值并未发生变化导致一致无法结束。
+
+status通过volatile修饰后，task1可以正常结束
+
+```java
+private volatile boolean status = true;
+```
+
+
+
+关于Volatile的作用，可以理解成被Volatile修饰的变量，线程直接在主内存中操作(从执行效果角度看)
