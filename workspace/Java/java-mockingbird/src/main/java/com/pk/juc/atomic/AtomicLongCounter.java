@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 统计请求中成功的，失败的和总的数量
- * 设计为单例
+ * 都使用一个计数器，所以设计为单例
  */
 public class AtomicLongCounter {
 

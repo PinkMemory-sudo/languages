@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class AtomicTest {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         // 模拟用户登录，有一定概率登录失败
         AtomicLongCounter counter = AtomicLongCounter.getInstance();
         Runnable userLogin = () -> {
@@ -17,15 +17,13 @@ public class AtomicTest {
             } else {
                 counter.successRequest();
             }
+            log.info("total:{},success:{},fail:{}",  counter.getTotalCount(),
+                    counter.getSuccessCount(), counter.getFailCount());
         };
-
+        // 模拟10000用户的请求
         for (int i = 0; i < 10000; i++) {
             new Thread(userLogin,"Thread"+i).start();
         }
-
-        TimeUnit.SECONDS.sleep(1);
-        log.info("total:{},success:{},fail:{}",  counter.getTotalCount(),
-                counter.getSuccessCount(), counter.getFailCount());
     }
 }
 
