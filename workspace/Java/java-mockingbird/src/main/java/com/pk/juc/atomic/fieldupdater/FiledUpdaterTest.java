@@ -12,6 +12,6 @@ public class FiledUpdaterTest {
             task.join();
         }
         System.out.println(user.getGrade());
-        new AtomicReference<>()
+        new AtomicReference<>();
     }
 }
