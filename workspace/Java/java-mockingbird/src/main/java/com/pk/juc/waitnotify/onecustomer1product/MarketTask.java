@@ -1,10 +1,6 @@
-package com.pk.juc.onecustomer1product;
+package com.pk.juc.waitnotify.onecustomer1product;
 
-import com.pk.reflect.A;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class MarketTask {
@@ -14,8 +10,8 @@ public class MarketTask {
      * 进货
      */
     public synchronized void add() throws InterruptedException {
-        if (goods) {
-            this.wait(1000);
+        while (goods) {
+            this.wait();
         }
         goods = true;
         System.out.println(Thread.currentThread().getName() + ": true");
@@ -26,8 +22,8 @@ public class MarketTask {
      * 出货
      */
     public synchronized void popList() throws InterruptedException {
-        if (!goods) {
-            this.wait(1000);
+        while (!goods) {
+            this.wait();
         }
         goods = false;
         System.out.println(Thread.currentThread().getName() + ": false");

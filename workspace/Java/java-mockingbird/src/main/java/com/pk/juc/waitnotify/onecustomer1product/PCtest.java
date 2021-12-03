@@ -1,8 +1,4 @@
-package com.pk.juc.onecustomer1product;
-
-import java.sql.Time;
-import java.time.Instant;
-import java.util.concurrent.TimeUnit;
+package com.pk.juc.waitnotify.onecustomer1product;
 
 /**
  * 生产者消费者测试
@@ -13,7 +9,7 @@ public class PCtest{
         new Consumer(marketTask,"c1").start();
         new Product(marketTask,"p1").start();
         new Consumer(marketTask,"c2").start();
-        new Product(marketTask,"p3").start();
+        new Product(marketTask,"p2").start();
     }
 }
 
